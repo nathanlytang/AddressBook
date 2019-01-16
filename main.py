@@ -31,7 +31,7 @@ title.pack()
 info = tk.Label(root, font=('Tahoma', 8), justify=tk.LEFT, text="Store your contacts' names, emails, phone numbers, addresses, and birthdates")
 info.pack()
 
-container = ttk.Frame() # Treeview and scrollbar frame
+container = ttk.Frame()
 container.pack(fill='both', expand=True)
 
 tree = ttk.Treeview(root) # Treeview
@@ -51,13 +51,14 @@ tree.heading("three", text="Phone Number",anchor=tk.W)
 tree.heading("four", text="Address",anchor=tk.W)
 tree.heading("five", text="Birthdate",anchor=tk.W)
 
-vsb = ttk.Scrollbar(orient="vertical", command=tree.yview) # Vertical scroll bar
-hsb = ttk.Scrollbar(orient="horizontal", command=tree.xview) # Horizontal scroll bar
-tree.configure(yscrollcommand=vsb.set)
+vsb = ttk.Scrollbar(orient="vertical", command=tree.yview)
+hsb = ttk.Scrollbar(orient="horizontal", command=tree.xview)
+
+tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
 
 vsb.grid(column=1, row=0, sticky='ns', in_=container)
 hsb.grid(column=0, row=1, sticky='ew', in_=container)
-tree.grid(clumn=0, row=0, sticky='nsew', in_=container)
+tree.grid(column=0, row=0, sticky='nsew', in_=container)
 
 container.grid_columnconfigure(0, weight=1)
 container.grid_rowconfigure(0, weight=1)
