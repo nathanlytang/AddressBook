@@ -51,8 +51,8 @@ tree.heading("three", text="Phone Number",anchor=tk.W)
 tree.heading("four", text="Address",anchor=tk.W)
 tree.heading("five", text="Birthdate",anchor=tk.W)
 
-vsb = ttk.Scrollbar(orient="vertical", command=tree.yview)
-hsb = ttk.Scrollbar(orient="horizontal", command=tree.xview)
+vsb = ttk.Scrollbar(orient="vertical", command=tree.yview) # Vertical scroll bar
+hsb = ttk.Scrollbar(orient="horizontal", command=tree.xview) # Horizontal scroll bar
 
 tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
 
