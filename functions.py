@@ -31,7 +31,7 @@ def newContact(): # Allows user to add new contact
     rows.append(contact)
 
     for i in range(len(contact)): # Checks to see if user inputted anything
-        if contact[i] == "":
+        if contact[i] == "" or contact[i] is None:
             pass
         else:
             fil = open("contactData.csv", "w", newline="")  # Writes rows to CSV file
@@ -44,9 +44,27 @@ def editContact():
     return
 
 
-def delContact(tree):
-    # https://stackoverflow.com/questions/43571715/deleting-selected-items-from-the-treeview-as-well-as-from-the-list-at-the-same
-    return
+def delContact(tree): # Still not working
+
+    #https://stackoverflow.com/questions/43571715/deleting-selected-items-from-the-treeview-as-well-as-from-the-list-at-the-same
+
+    fil = open("contactData.csv", newline='')
+    readCSV = csv.reader(fil)
+    rows = []
+
+    for line in readCSV:
+        rows.append(line)
+
+
+    selected_items = tree.selection()
+    for selected_item in selected_items:             
+        for i in range(len(rows)):
+            if rows[i] == tree.item(selected_item):
+                rows.pop(i) # Remove the corresponding item
+                # Make sure the list is updated:
+                print('length: {}'.format(len(rows)))
+                break
+        tree.delete(selected_item)
 
     
 
