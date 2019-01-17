@@ -56,15 +56,15 @@ def delContact(tree): # Still not working
         rows.append(line)
 
 
-    selected_items = tree.selection()
-    for selected_item in selected_items:             
+    selectedContact = tree.selection()
+    for contact in selectedContact:             
         for i in range(len(rows)):
-            if rows[i] == tree.item(selected_item):
+            if rows[i] == contact:
                 rows.pop(i) # Remove the corresponding item
                 # Make sure the list is updated:
                 print('length: {}'.format(len(rows)))
                 break
-        tree.delete(selected_item)
+        tree.delete(contact)
 
     
 
