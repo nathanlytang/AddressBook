@@ -48,23 +48,39 @@ def delContact(tree): # Still not working
 
     #https://stackoverflow.com/questions/43571715/deleting-selected-items-from-the-treeview-as-well-as-from-the-list-at-the-same
 
-    fil = open("contactData.csv", newline='')
-    readCSV = csv.reader(fil)
-    rows = []
+    # fil = open("contactData.csv", newline='')
+    # readCSV = csv.reader(fil)
+    # rows = []
 
-    for line in readCSV:
-        rows.append(line)
+    # for line in readCSV:
+    #     rows.append(line)
 
 
-    selectedContact = tree.selection()
-    for contact in selectedContact:             
-        for i in range(len(rows)):
-            if rows[i] == contact:
-                rows.pop(i) # Remove the corresponding item
-                # Make sure the list is updated:
-                print('length: {}'.format(len(rows)))
-                break
-        tree.delete(contact)
+    # selectedContact = tree.selection()
+    # print(selectedContact)
+    # for contact in selectedContact:             
+    #     for i in range(len(rows)):
+    #         if rows[i] == contact:
+    #             rows.pop(i) # Remove the corresponding item
+    #             # Make sure the list is updated:
+    #             break
+    #     tree.delete(contact)
+
+    selected_item = tree.selection()[0] ## get selected item
+    tree.delete(selected_item)
+
+
+
+    # selected_items = tree.selection()
+    # for selected_item in selected_items:  
+    #        # Updating selfs.tasks[] through this loop            
+    #        for i in range(len(rows)):
+    #            if rows[i].subject == tree.item(selected_item)['values'][0]:
+    #                rows.pop(i) # Remove the corresponding item
+    #                # Make sure the list is updated:
+    #                print('length: {}'.format(len(rows)))
+    #                break          
+    #        tree.delete(selected_item)
 
     
 
