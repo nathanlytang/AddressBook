@@ -123,6 +123,7 @@ def delContact(tree): # Deletes the highlighted contact
         if rows[i] == tree.item(selected_item)['values']:
             rows.pop(i)
             print(rows)
+            break
     tree.delete(selected_item)
 
     fil = open("contactData.csv", "w", newline="")  # Writes updated rows to CSV file
