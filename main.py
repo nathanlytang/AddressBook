@@ -14,6 +14,9 @@ import functions
 root = tk.Tk()
 root.wm_title("Contact Directory")
 
+
+
+# Title and information
 title = tk.Label(root, font=('Tahoma', 12), text='Contact Directory')
 title.pack()
 
@@ -24,8 +27,8 @@ container = ttk.Frame()
 container.pack(fill='both', expand=True)
 
 
-# Treeview
 
+# Treeview
 treeColumns = ("First Name","Surname","Email","Phone Number","Address","Birthdate")
 tree = ttk.Treeview(columns=treeColumns, show="headings")
 
@@ -48,9 +51,10 @@ container.grid_columnconfigure(0, weight=1)
 container.grid_rowconfigure(0, weight=1)
 
 
+
 # Buttons
-addButton = tk.Button(root, text="Add Contacts", command = functions.newContact)
-editButton = tk.Button(root, text="Edit Contacts", command = functions.editContact)
+addButton = tk.Button(root, text="Add Contacts", command = lambda: functions.newContact(tree))
+editButton = tk.Button(root, text="Edit Contacts", command = lambda: functions.editContact(tree))
 delButton = tk.Button(root, text="Delete Contacts", command = lambda: functions.delContact(tree))
 
 delButton.pack(side=tk.RIGHT)
@@ -58,5 +62,7 @@ editButton.pack(side=tk.RIGHT)
 addButton.pack(side=tk.RIGHT)
 
 functions.printTreeview(tree)
+
+
 
 root.mainloop()
