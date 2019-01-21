@@ -13,15 +13,24 @@ def openCSV(): # Opens CSV
     fil = open("contactData.csv", newline='')
     readCSV = csv.reader(fil)
     rows = []
-
     for line in readCSV:
         rows.append(line)
-    
+
     return rows
 
 
 
-def sort(tree, column, descending):
+def writeCSV(rows): # Writes to CSV
+    fil = open("contactData.csv", "w", newline="")  # Writes updated rows to CSV file
+    writeCSV = csv.writer(fil)
+    for i in range(len(rows)):
+        writeCSV.writerow(rows[i])
+
+    return rows
+
+
+
+def sort(tree, column, descending): # Allows user to sort the data
 
     data = [(tree.set(child, column), child) for child in tree.get_children('')] # Places values to sort in data
 
@@ -41,7 +50,7 @@ def newContact(tree): # Allows user to add new contact
     fName = simpledialog.askstring("Add New Contact", "First Name:")
     sName = simpledialog.askstring("Add New Contact", "Surname:")
     email = simpledialog.askstring("Add New Contact", "Email:")
-    phone = simpledialog.askstring("Add New Contact", "Phone Number:")
+    phone = simpledialog.askstring("Add New Contact", "Phone Number (___-___-____):")
     address = simpledialog.askstring("Add New Contact", "Address:")
     birthdate = simpledialog.askstring("Add New Contact", "Birthdate (YYYY/MM/DD):")
 
@@ -54,17 +63,14 @@ def newContact(tree): # Allows user to add new contact
         if contact[i] == "" or contact[i] is None:
             pass
         else:
-            fil = open("contactData.csv", "w", newline="")  # Writes rows to CSV file
-            writeCSV = csv.writer(fil)
-            for i in range(len(rows)):
-                writeCSV.writerow(rows[i])
+            rows = writeCSV(rows) # Updates the CSV file
 
             tree.delete(*tree.get_children()) # Deletes tree
 
             # Writes updated tree
             for i in range(len(rows)):
                 tree.insert("", i, values=(rows[i][0],rows[i][1],rows[i][2],rows[i][3],rows[i][4],rows[i][5]))
-    
+
 
 
 def editContact(tree): # Allows user to edit contact
@@ -80,7 +86,7 @@ def editContact(tree): # Allows user to edit contact
             fName = simpledialog.askstring("Edit Contact", "First Name:", initialvalue=rows[i][0])
             sName = simpledialog.askstring("Edit Contact", "Surname:", initialvalue=rows[i][1])
             email = simpledialog.askstring("Edit Contact", "Email:", initialvalue=rows[i][2])
-            phone = simpledialog.askstring("Edit Contact", "Phone Number:", initialvalue=rows[i][3])
+            phone = simpledialog.askstring("Edit Contact", "Phone Number (___-___-____):", initialvalue=rows[i][3])
             address = simpledialog.askstring("Edit Contact", "Address:", initialvalue=rows[i][4])
             birthdate = simpledialog.askstring("Edit Contact", "Birthdate (YYYY/MM/DD):", initialvalue=rows[i][5])
             
@@ -97,10 +103,7 @@ def editContact(tree): # Allows user to edit contact
                 if contact[i] == "" or contact[i] is None:
                     pass
                 else:
-                    fil = open("contactData.csv", "w", newline="")  # Writes updated rows to CSV file
-                    writeCSV = csv.writer(fil)
-                    for i in range(len(rows)):
-                        writeCSV.writerow(rows[i])
+                    rows = writeCSV(rows) # Updates the CSV file
 
                     tree.delete(*tree.get_children()) # Deletes tree
 
@@ -125,11 +128,7 @@ def delContact(tree): # Deletes the highlighted contact
             print(rows)
             break
     tree.delete(selected_item)
-
-    fil = open("contactData.csv", "w", newline="")  # Writes updated rows to CSV file
-    writeCSV = csv.writer(fil)
-    for i in range(len(rows)):
-        writeCSV.writerow(rows[i])
+    rows = writeCSV(rows) # Updates the CSV file
 
 
 
