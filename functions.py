@@ -9,6 +9,16 @@ from tkinter import simpledialog
 import csv
 
 
+def sort(tree, column, descending):
+
+    data = [(tree.set(child, column), child) for child in tree.get_children('')] # Places values to sort in data
+
+    data.sort(reverse=descending) # Reorders data
+    for index, item in enumerate(data):
+        tree.move(item[1], '', index)
+
+    tree.heading(column, command=lambda col=column: sort(tree, column, int(not descending)))
+
 
 def newContact(): # Allows user to add new contact
     
@@ -44,43 +54,28 @@ def editContact():
     return
 
 
-def delContact(tree): # Still not working
+def delContact(tree): # Deletes the highlighted contact
 
-    #https://stackoverflow.com/questions/43571715/deleting-selected-items-from-the-treeview-as-well-as-from-the-list-at-the-same
+    '''NOTE: Currently cannot delete list with integers'''
 
-    # fil = open("contactData.csv", newline='')
-    # readCSV = csv.reader(fil)
-    # rows = []
+    fil = open("contactData.csv", newline='')
+    readCSV = csv.reader(fil)
+    rows = []
 
-    # for line in readCSV:
-    #     rows.append(line)
+    for line in readCSV:
+        rows.append(line)
 
-
-    # selectedContact = tree.selection()
-    # print(selectedContact)
-    # for contact in selectedContact:             
-    #     for i in range(len(rows)):
-    #         if rows[i] == contact:
-    #             rows.pop(i) # Remove the corresponding item
-    #             # Make sure the list is updated:
-    #             break
-    #     tree.delete(contact)
-
-    selected_item = tree.selection()[0] ## get selected item
+    selected_item = tree.selection()[0]
+    for i in range(len(rows)):
+        if rows[i] == tree.item(selected_item)['values']:
+            rows.pop(i)
+            print(rows)
     tree.delete(selected_item)
 
-
-
-    # selected_items = tree.selection()
-    # for selected_item in selected_items:  
-    #        # Updating selfs.tasks[] through this loop            
-    #        for i in range(len(rows)):
-    #            if rows[i].subject == tree.item(selected_item)['values'][0]:
-    #                rows.pop(i) # Remove the corresponding item
-    #                # Make sure the list is updated:
-    #                print('length: {}'.format(len(rows)))
-    #                break          
-    #        tree.delete(selected_item)
+    fil = open("contactData.csv", "w", newline="")  # Writes rows to CSV file
+    writeCSV = csv.writer(fil)
+    for i in range(len(rows)):
+        writeCSV.writerow(rows[i])
 
     
 
@@ -95,7 +90,7 @@ def printTreeview(tree): # Updates the treeview with CSV data
     # tree.delete(*tree.get_children()) # Delete tree to refresh currently not working
 
     for i in range(len(rows)):
-        tree.insert("", i, text=rows[i][0], values=(rows[i][1],rows[i][2],rows[i][3],rows[i][4],rows[i][5]))
+        tree.insert("", i, values=(rows[i][0],rows[i][1],rows[i][2],rows[i][3],rows[i][4],rows[i][5]))
 
 
 
