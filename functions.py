@@ -7,7 +7,8 @@ Nathan Tang
 import tkinter as tk
 from tkinter import simpledialog
 import csv
-
+import spreadsheet
+import gspread
 
 def openCSV(): # Opens CSV
     fil = open("contactData.csv", newline='')
@@ -27,6 +28,21 @@ def writeCSV(rows): # Writes to CSV
         writeCSV.writerow(rows[i])
 
     return rows
+
+
+
+def impSpread(): # Import spreadsheet information into list
+    rows = spreadsheet.worksheet.get_all_values()
+    return rows
+
+
+
+def updateSpreadsheet(rows): # Updates the Google Spreadsheet
+    cells = []
+    for row_num, row in enumerate(rows):
+        for col_num, cell in enumerate(row):
+            cells.append(gspread.Cell(row_num + 1, col_num + 1, rows[row_num][col_num]))
+    spreadsheet.worksheet.update_cells(cells)
 
 
 
@@ -70,6 +86,9 @@ def newContact(tree): # Allows user to add new contact
             # Writes updated tree
             for i in range(len(rows)):
                 tree.insert("", i, values=(rows[i][0],rows[i][1],rows[i][2],rows[i][3],rows[i][4],rows[i][5]))
+            
+            # Updates the Google Spreadsheet
+            updateSpreadsheet(rows)
 
 
 
@@ -110,6 +129,9 @@ def editContact(tree): # Allows user to edit contact
                     # Writes updated tree
                     for i in range(len(rows)):
                         tree.insert("", i, values=(rows[i][0],rows[i][1],rows[i][2],rows[i][3],rows[i][4],rows[i][5]))
+
+            updateSpreadsheet(rows)
+            
         else:
             pass
 
@@ -130,6 +152,14 @@ def delContact(tree): # Deletes the highlighted contact
     tree.delete(selected_item)
     rows = writeCSV(rows) # Updates the CSV file
 
+    # spreadsheet.worksheet.update_cells(cell)
+    # updateSpreadsheet(rows) # Updates the Spreadsheet
+
+    cells = []
+    for row_num, row in enumerate(rows):
+        for col_num, cell in enumerate(row):
+            rows.pop(gspread.Cell(row_num + 1, col_num + 1, rows[row_num][col_num]))
+    spreadsheet.worksheet.update_cells(cells)
 
 
 def printTreeview(tree): # Updates the treeview with CSV data
