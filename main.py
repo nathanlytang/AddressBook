@@ -61,8 +61,9 @@ delButton.pack(side=tk.RIGHT)
 editButton.pack(side=tk.RIGHT)
 addButton.pack(side=tk.RIGHT)
 
+
+initRows = functions.impSpread()
+rows = functions.writeCSV(initRows)
 functions.printTreeview(tree)
-
-
 
 root.mainloop()
