@@ -1,7 +1,6 @@
 '''
-Contact Directory GUI
+Address Book GUI in Tkinter
 Nathan Tang
-19/01/09
 '''
 
 import tkinter as tk
