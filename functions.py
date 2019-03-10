@@ -29,7 +29,7 @@ def writeCSV(rows): # Writes to CSV
 
     return rows
 
-
+    
 
 def impSpread(): # Import spreadsheet information into list
     rows = spreadsheet.worksheet.get_all_values()
@@ -37,10 +37,11 @@ def impSpread(): # Import spreadsheet information into list
 
 
 
-def updateSpreadsheet(rows): # Updates the Google Spreadsheet
+def updateSpreadsheet(rows): # Updates the entire Google Spreadsheet
     cells = []
     for row_num, row in enumerate(rows):
         for col_num, cell in enumerate(row):
+            cell = cell
             cells.append(gspread.Cell(row_num + 1, col_num + 1, rows[row_num][col_num]))
     spreadsheet.worksheet.update_cells(cells)
 
@@ -86,9 +87,9 @@ def newContact(tree): # Allows user to add new contact
             # Writes updated tree
             for i in range(len(rows)):
                 tree.insert("", i, values=(rows[i][0],rows[i][1],rows[i][2],rows[i][3],rows[i][4],rows[i][5]))
-            
-            # Updates the Google Spreadsheet
-            updateSpreadsheet(rows)
+
+    # Inserts new contact into Google Spreadsheet
+    spreadsheet.worksheet.insert_row(contact, (len(rows)))
 
 
 
@@ -130,6 +131,7 @@ def editContact(tree): # Allows user to edit contact
                     for i in range(len(rows)):
                         tree.insert("", i, values=(rows[i][0],rows[i][1],rows[i][2],rows[i][3],rows[i][4],rows[i][5]))
 
+            # Updates the Google Spreadsheet
             updateSpreadsheet(rows)
             
         else:
@@ -144,22 +146,17 @@ def delContact(tree): # Deletes the highlighted contact
     rows = openCSV()
 
     selected_item = tree.selection()[0] # Deletes selected item from tree and rows
+    treeItem = tree.item(selected_item)['values']
     for i in range(len(rows)):
-        if rows[i] == tree.item(selected_item)['values']:
+        if rows[i] == treeItem:
+            delIndex = rows.index(treeItem)
             rows.pop(i)
             print(rows)
             break
     tree.delete(selected_item)
+
     rows = writeCSV(rows) # Updates the CSV file
-
-    # spreadsheet.worksheet.update_cells(cell)
-    # updateSpreadsheet(rows) # Updates the Spreadsheet
-
-    cells = []
-    for row_num, row in enumerate(rows):
-        for col_num, cell in enumerate(row):
-            rows.pop(gspread.Cell(row_num + 1, col_num + 1, rows[row_num][col_num]))
-    spreadsheet.worksheet.update_cells(cells)
+    spreadsheet.worksheet.delete_row(delIndex+1) # Updates the Google Spreadsheet
 
 
 def printTreeview(tree): # Updates the treeview with CSV data
