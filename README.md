@@ -2,6 +2,9 @@
 
 This program is an address book created in Python, using Tkinter for its GUI.  It allows the user to add, edit, and delete contacts.  Options include: First name, surname, phone number, email, address, and birthdate.
 
+![alt text](images\GUI.png)
+
+
 Contacts are saved within a CSV file on the local host.  This information is also saved on a Google Spreadsheet that uses the Google Drive API in conjunction with _gspread_, an API for calling Google Sheets in Python.
 
 ## Requirements
