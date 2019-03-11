@@ -33,13 +33,13 @@ git clone https://github.com/natt1604/AddressBook
 
 On [Google Developers](https://console.developers.google.com), create a new project and enable the Google Drive API. 
 
-![Create Credentials](https://github.com/natt1604/AddressBook/images/cred0.png "Create Credentials")
+![Create Credentials](https://github.com/natt1604/AddressBook/blob/master/images/cred0.png "Create Credentials")
 
 Click Create Credentials
 
-![Create Credentials](https://github.com/natt1604/AddressBook/images/cred1.png "Create Credentials")
+![Create Credentials](https://github.com/natt1604/AddressBook/blob/master/images/cred1.png "Create Credentials")
 
-![Create Credentials](https://github.com/natt1604/AddressBook/images/cred2.png "Create Credentials")
+![Create Credentials](https://github.com/natt1604/AddressBook/blob/master/images/cred2.png "Create Credentials")
 
 Copy the settings in the two images above.  Then, download the .json file to the repository.  Share your Google Sheets document with the email provided in the .json file.  In _spreadsheets.py_, replace _client_secret.json_ with the name of your .json file.
 
