@@ -41,7 +41,7 @@ Click Create Credentials
 
 ![Create Credentials](https://github.com/natt1604/AddressBook/images/cred2.png "Create Credentials")
 
-Copy the settings in the two images above.  Then, download the .json file to the repository.  Share your Google Sheets document with the email provided in the .json file.  In _spreadsheets.py_, replace _client_secret.json_ with the name of your .json file
+Copy the settings in the two images above.  Then, download the .json file to the repository.  Share your Google Sheets document with the email provided in the .json file.  In _spreadsheets.py_, replace _client_secret.json_ with the name of your .json file.
 
 ## Current Known Bugs
 1. If only numbers are entered into the dialog boxes, they cannot be deleted with the delete button/function.  They can only be deleted via the CSV file.  Letters or symbols in combination with numbers will work fine.
