@@ -19,15 +19,15 @@ pip install gspread oauth2client
 
 1. Install dependencies 
 
-```
+`
 pip install gspread oauth2client
-```
+`
 
 2. Clone the repository
 
-```
+`
 git clone https://github.com/natt1604/AddressBook
-```
+`
 
 3. Set up your credentials
 
