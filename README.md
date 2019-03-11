@@ -35,7 +35,7 @@ On [Google Developers](https://console.developers.google.com), create a new proj
 
 ![Create Credentials](https://github.com/natt1604/AddressBook/blob/master/images/cred0.png "Create Credentials")
 
-Click Create Credentials
+Click __Create Credentials__
 
 ![Create Credentials](https://github.com/natt1604/AddressBook/blob/master/images/cred1.png "Create Credentials")
 
