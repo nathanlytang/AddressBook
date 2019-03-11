@@ -45,3 +45,4 @@ Copy the settings in the two images above.  Then, download the .json file to the
 
 ## Current Known Bugs
 1. If only numbers are entered into the dialog boxes, they cannot be deleted with the delete button/function.  They can only be deleted via the CSV file.  Letters or symbols in combination with numbers will work fine.
+2. Clicking cancel when adding or editing will return a NoneType object, causing an error in the spreadsheet.
